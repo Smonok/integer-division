@@ -1,76 +1,105 @@
 package main.java.com.foxminded;
 
-import java.util.Collections;
-
 public class Division {
 
-    public int integerDivision(int dividend, int divider) {
-        if (divider == 0 || divider < dividend) {
+    public int[] getMinuend(int dividend, int divisor) {
+        if (divisor <= 0 || dividend < 0 || dividend < divisor) {
+            throw new IllegalArgumentException();
+        }
+        return fillMinuend(dividend, divisor);
+    }
+
+    private int[] fillMinuend(int dividend, int divisor) {
+        int[] minuend = new int[numberLength(dividend / divisor)];
+        int currentDividend = firstDividend(dividend, divisor);
+        int[] dividendDigits = numberDigits(dividend);
+        int index = numberLength(firstDividend(dividend, divisor));
+
+        minuend[0] = firstDividend(dividend, divisor);
+        for (int i = 1; i < minuend.length; i++) {
+            currentDividend = findCurrentDividend(difference(currentDividend, divisor), dividendDigits[index]);
+            index++;
+            minuend[i] = currentDividend;
+        }
+
+        return minuend;
+    }
+
+    public int firstDividend(int dividend, int divisor) {
+        if (divisor <= 0 || dividend < 0 || dividend < divisor) {
             throw new IllegalArgumentException();
         }
 
-        int[] dividendDigits = digitsArrayFromNumber(dividend);
-        int[] resultDigits = digitsArrayFromNumber((dividend / divider));
-        int currentDividend = firstDivident(dividend, divider);
-        int firstDividendLength = digitsArrayFromNumber(currentDividend).length;
-        int index = 1;
-        int subtrahend = 0;
-
-        printHeader(dividend, divider);
-        for (int i = firstDividendLength - 1; i < dividendDigits.length; i++) {
-            int remainder = currentDividend % divider;
-
-            if (i != dividendDigits.length - 1) {
-                currentDividend = currentDividend(remainder, dividendDigits[i + 1]);
-                subtrahend = divider * resultDigits[index];
+        int[] dividendDigits = numberDigits(dividend);
+        int firstDividend = dividendDigits[0];
+        int index = 0;
+        for (int i = 0; i < dividendDigits.length; i++) {
+            if (firstDividend < divisor) {
+                firstDividend *= 10;
+                firstDividend += dividendDigits[index + 1];
                 index++;
-                printBody(currentDividend, subtrahend, firstDividendLength, i);
-            } else {
-                printLastRemainder(subtrahend, remainder, i);
             }
         }
 
-        return dividend / divider;
+        return firstDividend;
     }
 
-    private void printHeader(int dividend, int divider) {
-        int firstDividendLength = digitsArrayFromNumber(firstDivident(dividend, divider)).length;
-        int dividendLength = digitsArrayFromNumber(dividend).length;
-        int resultLength = digitsArrayFromNumber(dividend / divider).length;
-        int dividerLength = digitsArrayFromNumber(divider).length;
-        int[] resultDigits = digitsArrayFromNumber((dividend / divider));
-        int FirstSubtrahend = divider * resultDigits[0];
+    private int findCurrentDividend(int difference, int nextDigit) {
+        int dividend = difference * 10;
+        dividend += nextDigit;
 
-        System.out.format("_%d|%d\n", dividend, divider);
-
-        System.out.format("%" + (1 + firstDividendLength) + "d", FirstSubtrahend);
-        System.out.format("%" + (1 + dividendLength - firstDividendLength) + "s", "|");
-        System.out.format(String.join("", Collections.nCopies(resultLength, "-")) + "\n");
-
-        System.out.format("%" + (1 + dividerLength) + "s", String.join("", Collections.nCopies(dividerLength, "-")));
-        System.out.format("%" + (1 + dividendLength - dividerLength) + "s", "|");
-        System.out.format("%d\n", (dividend / divider));
+        return dividend;
     }
 
-    private void printBody(int currentDividend, int subtrahend, int firstDividendLength, int indent) {
-        int currentDividendLength = digitsArrayFromNumber(currentDividend).length;
+    private int difference(int currentDividend, int divisor) {
+        return currentDividend % divisor;
+    }
 
-        if (firstDividendLength == 1) {
-            indent++;
+    public int[] getSubtrahend(int dividend, int divisor) {
+        if (divisor <= 0 || dividend < 0 || dividend < divisor) {
+            throw new IllegalArgumentException();
         }
-        System.out.format("%" + indent + "s%d\n", "_", currentDividend);
-        System.out.format("%" + (currentDividendLength + indent) + "d\n", subtrahend);
-        System.out.format("%" + (currentDividendLength + indent) + "s\n",
-                String.join("", Collections.nCopies(currentDividendLength, "-")));
+
+        return fillSubtrahend(dividend, divisor);
     }
 
-    private void printLastRemainder(int subtrahend, int remainder, int indent) {
-        int subtrahendLength = digitsArrayFromNumber(subtrahend).length;
+    private int[] fillSubtrahend(int dividend, int divisor) {
+        int[] subtrahend = new int[numberLength(dividend / divisor)];
+        int[] resultDigits = numberDigits(dividend / divisor);
 
-        System.out.format("%" + (subtrahendLength + indent) + "d\n", remainder);
+        for (int i = 0; i < subtrahend.length; i++) {
+            subtrahend[i] = divisor * resultDigits[i];
+        }
+
+        return subtrahend;
     }
 
-    private int[] digitsArrayFromNumber(int number) {
+    public int indent(int firstMinuend, int firstSubtrahend) {
+        if (firstMinuend < 0 || firstSubtrahend < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        int firstMinuendLength = numberLength(firstMinuend);
+        int difference = firstMinuend - firstSubtrahend;
+        int differenceLength = numberLength(difference);
+        int indent = firstMinuendLength - differenceLength;
+
+        return indent;
+    }
+
+    public int numberLength(int number) {
+        if (number < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        return numberDigits(number).length;
+    }
+
+    public int[] numberDigits(int number) {
+        if (number < 0) {
+            throw new IllegalArgumentException();
+        }
+
         String numberStr = Integer.toString(number);
         int[] digits = new int[numberStr.length()];
         for (int i = 0; i < numberStr.length(); i++) {
@@ -78,28 +107,5 @@ public class Division {
         }
 
         return digits;
-    }
-
-    private int firstDivident(int dividend, int divider) {
-        int[] dividendDigits = digitsArrayFromNumber(dividend);
-        int firstDivident = dividendDigits[0];
-        int index = 0;
-        for (int i = 0; i < dividendDigits.length; i++) {
-            if (firstDivident < divider) {
-                firstDivident *= 10;
-                firstDivident += dividendDigits[index + 1];
-                index++;
-            }
-        }
-
-        return firstDivident;
-    }
-
-    private int currentDividend(int remainder, int nextDigit) {
-        int dividend = 0;
-        dividend = remainder * 10;
-        dividend += nextDigit;
-
-        return dividend;
     }
 }
