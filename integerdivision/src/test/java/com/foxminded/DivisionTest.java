@@ -103,24 +103,4 @@ class DivisionTest {
 
         assertArrayEquals(expectedResult, actualResult);
     }
-
-    @Test
-    void removeMinusShouldReturnNumberWithoutMinusWhenNegative() {
-        Division division = new Division();
-        int number = -78;
-        int expectedResult = 78;
-        int actualResult = division.removeMinus(number);
-
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void removeMinusShouldReturnSameNumberWhenPositive() {
-        Division division = new Division();
-        int number = 78;
-        int expectedResult = 78;
-        int actualResult = division.removeMinus(number);
-
-        assertEquals(expectedResult, actualResult);
-    }
 }

@@ -10,22 +10,19 @@ public class PrintDivision {
         }
 
         Division division = new Division();
-        StringBuilder divisionResult = new StringBuilder(getHeader(dividend, divisor));
-        int result = division.removeMinus(dividend / divisor);
-        int resultLength = division.numberDigits(result).length;
-        int[] minuend = division.getMinuend(division.removeMinus(dividend), division.removeMinus(divisor));
-        int[] subtrahend = division.getSubtrahend(division.removeMinus(dividend), division.removeMinus(divisor));
+        StringBuilder divisionResult = new StringBuilder(getHeader(dividend, divisor, division));
+        int[] minuend = division.getMinuend(Math.abs(dividend), Math.abs(divisor));
+        int[] subtrahend = division.getSubtrahend(Math.abs(dividend), Math.abs(divisor));
 
-        for (int i = 1; i < resultLength; i++) {
-            divisionResult.append(getBody(minuend, subtrahend, dividend, i));
+        for (int i = 1; i < minuend.length; i++) {
+            divisionResult.append(getBody(minuend, subtrahend, dividend, division, i));
         }
-        divisionResult.append(getRemainder(minuend, subtrahend, dividend));
+        divisionResult.append(getRemainder(minuend, subtrahend, dividend, division));
 
         return divisionResult.toString();
     }
 
-    private String getHeader(int dividend, int divisor) {
-        Division division = new Division();
+    private String getHeader(int dividend, int divisor, Division division) {
         int result = dividend / divisor;
         int indent = 1;
         String header = "_" + dividend + "|" + divisor + "\n";
@@ -34,8 +31,8 @@ public class PrintDivision {
             indent++;
         }
 
-        dividend = division.removeMinus(dividend);
-        divisor = division.removeMinus(divisor);
+        dividend = Math.abs(dividend);
+        divisor = Math.abs(divisor);
 
         int firstDividend = division.firstDividend(dividend, divisor);
         int firstDividendLength = division.numberDigits(firstDividend).length;
@@ -61,12 +58,9 @@ public class PrintDivision {
         return header;
     }
 
-    private String getBody(int[] minuend, int[] subtrahend, int dividend, int index) {
-        Division division = new Division();
-        String body = "";
-        int firstMinuendLength = division.numberDigits(minuend[0]).length;
+    private String getBody(int[] minuend, int[] subtrahend, int dividend, Division division, int index) {
         int minuendLength = division.numberDigits(minuend[index]).length;
-        int indent = firstMinuendLength - minuendLength + index + 1;
+        int indent = getIndent(minuend, division, index);
 
         if (dividend < 0) {
             indent++;
@@ -74,19 +68,16 @@ public class PrintDivision {
 
         int subtrahendIndent = division.numberDigits(minuend[index]).length + indent;
 
-        body += String.format("%" + indent + "s%d\n", "_", minuend[index]);
+        String body = String.format("%" + indent + "s%d\n", "_", minuend[index]);
         body += String.format("%" + subtrahendIndent + "d\n", subtrahend[index]);
         body += String.format("%" + subtrahendIndent + "s\n", String.join("", Collections.nCopies(minuendLength, "-")));
 
         return body;
     }
 
-    private String getRemainder(int[] minuend, int[] subtrahend, int dividend) {
-        Division division = new Division();
+    private String getRemainder(int[] minuend, int[] subtrahend, int dividend, Division division) {
         int index = minuend.length - 1;
-        int firstminuendLength = division.numberDigits(minuend[0]).length;
-        int minuendLength = division.numberDigits(minuend[index]).length;
-        int indent = firstminuendLength - minuendLength + index + 1;
+        int indent = getIndent(minuend, division, index);
         int subtrahendIndent = division.numberDigits(minuend[index]).length + indent;
         int remainder = minuend[index] - subtrahend[index];
 
@@ -94,6 +85,13 @@ public class PrintDivision {
             subtrahendIndent++;
         }
 
-        return String.format("%" + subtrahendIndent + "d\n", division.removeMinus(remainder));
+        return String.format("%" + subtrahendIndent + "d\n", Math.abs(remainder));
+    }
+
+    private int getIndent(int[] minuend, Division division, int index) {
+        int firstminuendLength = division.numberDigits(minuend[0]).length;
+        int minuendLength = division.numberDigits(minuend[index]).length;
+
+        return firstminuendLength - minuendLength + index + 1;
     }
 }

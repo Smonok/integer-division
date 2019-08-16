@@ -19,7 +19,7 @@ public class Division {
     }
 
     public int firstDividend(int dividend, int divisor) {
-        if (removeMinus(dividend) < divisor) {
+        if (Math.abs(dividend) < divisor) {
             return dividend;
         }
 
@@ -58,7 +58,7 @@ public class Division {
     }
 
     public int[] numberDigits(int number) {
-        String numberStr = Integer.toString(removeMinus(number));
+        String numberStr = Integer.toString(number);
         int[] digits = new int[numberStr.length()];
 
         for (int i = 0; i < numberStr.length(); i++) {
@@ -66,13 +66,5 @@ public class Division {
         }
 
         return digits;
-    }
-
-    public int removeMinus(int number) {
-        if (number < 0) {
-            number *= -1;
-        }
-
-        return number;
     }
 }
