@@ -1,26 +1,25 @@
-package test.java.com.foxminded;
+package com.foxminded;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-
-import main.java.com.foxminded.PrintDivision;
+import com.foxminded.PrintDivision;
 
 class PrintDivisionTest {
 
     @Test
-    void printIntegerDivisionShouldThrowIllegalArgumentExceptionWhenDivisorEqualsZero() {
+    void integerDivisionShouldThrowIllegalArgumentExceptionWhenDivisorEqualsZero() {
         PrintDivision division = new PrintDivision();
         int dividend = 5;
         int divisor = 0;
         
         assertThrows(IllegalArgumentException.class, () -> {
-            division.printIntegerDivision(dividend, divisor);
+            division.integerDivision(dividend, divisor);
         });
     }
 
     @Test
-    void printIntegerDivisionShouldReturnHeaderAndZeroRemainderWhenDividendZero() {
+    void integerDivisionShouldReturnHeaderAndZeroRemainderWhenDividendZero() {
         PrintDivision division = new PrintDivision();
         int dividend = 0;
         int divisor = 334;
@@ -28,13 +27,13 @@ class PrintDivisionTest {
                                 " 0|-\n" + 
                                 " -|0\n" +
                                 " 0\n";
-        String actualResult = division.printIntegerDivision(dividend, divisor);
+        String actualResult = division.integerDivision(dividend, divisor);
        
         assertEquals(expectedResult, actualResult);   
     }
     
     @Test
-    void printIntegerDivisionShouldReturnHeaderAndRemainderWhenDividendLessThanDivisor() {
+    void integerDivisionShouldReturnHeaderAndRemainderWhenDividendLessThanDivisor() {
         PrintDivision division = new PrintDivision();
         int dividend = 78;
         int divisor = 334;
@@ -42,13 +41,13 @@ class PrintDivisionTest {
                                 "  0|-\n" + 
                                 " --|0\n" +
                                 " 78\n";
-        String actualResult = division.printIntegerDivision(dividend, divisor);
+        String actualResult = division.integerDivision(dividend, divisor);
         
         assertEquals(expectedResult, actualResult);   
     }
     
     @Test
-    void printIntegerDivisionShouldReturnHeaderAndRemainderWhenResultIsSingleDigitNumber() {
+    void integerDivisionShouldReturnHeaderAndRemainderWhenResultIsSingleDigitNumber() {
         PrintDivision division = new PrintDivision();
         int dividend = 36;
         int divisor = 24;
@@ -56,13 +55,13 @@ class PrintDivisionTest {
                                 " 24|-\n" + 
                                 " --|1\n" + 
                                 " 12\n";
-        String actualResult = division.printIntegerDivision(dividend, divisor);
+        String actualResult = division.integerDivision(dividend, divisor);
         
         assertEquals(expectedResult, actualResult);   
     }
     
     @Test
-    void printIntegerDivisionShouldReturnDivisionWhenDividendBiggerThanDivisorAndTheyArePositive() {
+    void integerDivisionShouldReturnDivisionWhenDividendBiggerThanDivisorAndTheyArePositive() {
         PrintDivision division = new PrintDivision();
         int dividend = 24321;
         int divisor = 19;
@@ -79,13 +78,13 @@ class PrintDivisionTest {
                                 "     0\n" + 
                                 "     -\n" + 
                                 "     1\n";
-        String actualResult = division.printIntegerDivision(dividend, divisor);
+        String actualResult = division.integerDivision(dividend, divisor);
         
         assertEquals(expectedResult, actualResult);   
     }
     
     @Test
-    void printIntegerDivisionShouldReturnDivisionWithMinusesOnlyInHeaderWhenDividendNegative() {
+    void integerDivisionShouldReturnDivisionWithMinusesOnlyInHeaderWhenDividendNegative() {
         PrintDivision division = new PrintDivision();
         int dividend = -78945;
         int divisor = 16;
@@ -102,13 +101,13 @@ class PrintDivisionTest {
                                 "     64\n" + 
                                 "     --\n" + 
                                 "      1\n";
-        String actualResult = division.printIntegerDivision(dividend, divisor);
+        String actualResult = division.integerDivision(dividend, divisor);
         
         assertEquals(expectedResult, actualResult);   
     }
     
     @Test
-    void printIntegerDivisionShouldReturnDivisionWithMinusesOnlyInHeaderWhenDivisorNegative() {
+    void integerDivisionShouldReturnDivisionWithMinusesOnlyInHeaderWhenDivisorNegative() {
         PrintDivision division = new PrintDivision();
         int dividend = 78945;
         int divisor = -26;
@@ -125,13 +124,13 @@ class PrintDivisionTest {
                                 "   156\n" + 
                                 "   ---\n" + 
                                 "     9\n";
-        String actualResult = division.printIntegerDivision(dividend, divisor);
+        String actualResult = division.integerDivision(dividend, divisor);
         
         assertEquals(expectedResult, actualResult);   
     }
     
     @Test
-    void printIntegerDivisionShouldReturnDivisionWithMinusesOnlyInHeaderWhenBothParametersNegative() {
+    void integerDivisionShouldReturnDivisionWithMinusesOnlyInHeaderWhenBothParametersNegative() {
         PrintDivision division = new PrintDivision();
         int dividend = -23234;
         int divisor = -121;
@@ -145,7 +144,7 @@ class PrintDivisionTest {
                                 "    242\n" + 
                                 "    ---\n" + 
                                 "      2\n";
-        String actualResult = division.printIntegerDivision(dividend, divisor);
+        String actualResult = division.integerDivision(dividend, divisor);
        
         assertEquals(expectedResult, actualResult);   
     }    
