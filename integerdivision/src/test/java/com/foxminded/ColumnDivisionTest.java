@@ -3,13 +3,12 @@ package com.foxminded;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-import com.foxminded.PrintDivision;
 
-class PrintDivisionTest {
+class ColumnDivisionTest {
 
     @Test
     void integerDivisionShouldThrowIllegalArgumentExceptionWhenDivisorEqualsZero() {
-        PrintDivision division = new PrintDivision();
+        ColumnDivision division = new ColumnDivision();
         int dividend = 5;
         int divisor = 0;
         
@@ -20,7 +19,7 @@ class PrintDivisionTest {
 
     @Test
     void integerDivisionShouldReturnHeaderAndZeroRemainderWhenDividendZero() {
-        PrintDivision division = new PrintDivision();
+        ColumnDivision division = new ColumnDivision();
         int dividend = 0;
         int divisor = 334;
         String expectedResult = "_0|334\n" + 
@@ -34,7 +33,7 @@ class PrintDivisionTest {
     
     @Test
     void integerDivisionShouldReturnHeaderAndRemainderWhenDividendLessThanDivisor() {
-        PrintDivision division = new PrintDivision();
+        ColumnDivision division = new ColumnDivision();
         int dividend = 78;
         int divisor = 334;
         String expectedResult = "_78|334\n" + 
@@ -48,7 +47,7 @@ class PrintDivisionTest {
     
     @Test
     void integerDivisionShouldReturnHeaderAndRemainderWhenResultIsSingleDigitNumber() {
-        PrintDivision division = new PrintDivision();
+        ColumnDivision division = new ColumnDivision();
         int dividend = 36;
         int divisor = 24;
         String expectedResult = "_36|24\n" + 
@@ -62,7 +61,7 @@ class PrintDivisionTest {
     
     @Test
     void integerDivisionShouldReturnDivisionWhenDividendBiggerThanDivisorAndTheyArePositive() {
-        PrintDivision division = new PrintDivision();
+        ColumnDivision division = new ColumnDivision();
         int dividend = 24321;
         int divisor = 19;
         String expectedResult = "_24321|19\n" + 
@@ -85,7 +84,7 @@ class PrintDivisionTest {
     
     @Test
     void integerDivisionShouldReturnDivisionWithMinusesOnlyInHeaderWhenDividendNegative() {
-        PrintDivision division = new PrintDivision();
+        ColumnDivision division = new ColumnDivision();
         int dividend = -78945;
         int divisor = 16;
         String expectedResult = "_-78945|16\n" + 
@@ -108,7 +107,7 @@ class PrintDivisionTest {
     
     @Test
     void integerDivisionShouldReturnDivisionWithMinusesOnlyInHeaderWhenDivisorNegative() {
-        PrintDivision division = new PrintDivision();
+        ColumnDivision division = new ColumnDivision();
         int dividend = 78945;
         int divisor = -26;
         String expectedResult = "_78945|-26\n" + 
@@ -131,7 +130,7 @@ class PrintDivisionTest {
     
     @Test
     void integerDivisionShouldReturnDivisionWithMinusesOnlyInHeaderWhenBothParametersNegative() {
-        PrintDivision division = new PrintDivision();
+        ColumnDivision division = new ColumnDivision();
         int dividend = -23234;
         int divisor = -121;
         String expectedResult = "_-23234|-121\n" + 

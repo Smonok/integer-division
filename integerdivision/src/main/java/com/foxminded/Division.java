@@ -2,15 +2,15 @@ package com.foxminded;
 
 public class Division {
 
-    int[] getMinuendsArray(int dividend, int divisor) {
-        int[] minuend = new int[getNumberDigits(dividend / divisor).length];
-        int currentDividend = getFirstDividend(dividend, divisor);
-        int[] dividendDigits = getNumberDigits(dividend);
-        int index = getNumberDigits(getFirstDividend(dividend, divisor)).length;
+    int[] computeMinuendsArray(int dividend, int divisor) {
+        int[] minuend = new int[toDigitsArray(dividend / divisor).length];
+        int currentDividend = computeFirstDividend(dividend, divisor);
+        int[] dividendDigits = toDigitsArray(dividend);
+        int index = toDigitsArray(computeFirstDividend(dividend, divisor)).length;
 
-        minuend[0] = getFirstDividend(dividend, divisor);
+        minuend[0] = computeFirstDividend(dividend, divisor);
         for (int i = 1; i < minuend.length; i++) {
-            currentDividend = getCurrentDividend(currentDividend, divisor, dividendDigits[index]);
+            currentDividend = computeCurrentDividend(currentDividend, divisor, dividendDigits[index]);
             index++;
             minuend[i] = currentDividend;
         }
@@ -18,12 +18,12 @@ public class Division {
         return minuend;
     }
 
-    int getFirstDividend(int dividend, int divisor) {
+    int computeFirstDividend(int dividend, int divisor) {
         if (Math.abs(dividend) < divisor) {
             return dividend;
         }
 
-        int[] dividendDigits = getNumberDigits(dividend);
+        int[] dividendDigits = toDigitsArray(dividend);
         int firstDividend = dividendDigits[0];
         int index = 0;
 
@@ -38,7 +38,7 @@ public class Division {
         return firstDividend;
     }
 
-    private int getCurrentDividend(int currentDividend, int divisor, int nextDigit) {
+    private int computeCurrentDividend(int currentDividend, int divisor, int nextDigit) {
         int difference = currentDividend % divisor;
         int dividend = difference * 10;
         dividend += nextDigit;
@@ -46,9 +46,9 @@ public class Division {
         return dividend;
     }
 
-    int[] getSubtrahendsArray(int dividend, int divisor) {
-        int[] subtrahend = new int[getNumberDigits(dividend / divisor).length];
-        int[] resultDigits = getNumberDigits(dividend / divisor);
+    int[] computeSubtrahendsArray(int dividend, int divisor) {
+        int[] subtrahend = new int[toDigitsArray(dividend / divisor).length];
+        int[] resultDigits = toDigitsArray(dividend / divisor);
 
         for (int i = 0; i < subtrahend.length; i++) {
             subtrahend[i] = divisor * resultDigits[i];
@@ -57,7 +57,7 @@ public class Division {
         return subtrahend;
     }
 
-    int[] getNumberDigits(int number) {
+    int[] toDigitsArray(int number) {
         String numberStr = Integer.toString(number);
         int[] digits = new int[numberStr.length()];
 
