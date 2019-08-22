@@ -58,7 +58,7 @@ public class Division {
     }
 
     int[] toDigitsArray(int number) {
-        String numberStr = Integer.toString(number);
+        String numberStr = Integer.toString(Math.abs(number));
         int[] digits = new int[numberStr.length()];
 
         for (int i = 0; i < numberStr.length(); i++) {
