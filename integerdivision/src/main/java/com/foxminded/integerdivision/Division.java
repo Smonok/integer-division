@@ -1,12 +1,12 @@
-package com.foxminded;
+package com.foxminded.integerdivision;
 
 public class Division {
 
     int[] computeMinuendsArray(int dividend, int divisor) {
-        int[] minuend = new int[toDigitsArray(dividend / divisor).length];
+        int[] minuend = new int[Digits.toDigitsArray(dividend / divisor).length];
         int currentDividend = computeFirstDividend(dividend, divisor);
-        int[] dividendDigits = toDigitsArray(dividend);
-        int index = toDigitsArray(computeFirstDividend(dividend, divisor)).length;
+        int[] dividendDigits = Digits.toDigitsArray(dividend);
+        int index = Digits.toDigitsArray(computeFirstDividend(dividend, divisor)).length;
 
         minuend[0] = computeFirstDividend(dividend, divisor);
         for (int i = 1; i < minuend.length; i++) {
@@ -23,7 +23,7 @@ public class Division {
             return dividend;
         }
 
-        int[] dividendDigits = toDigitsArray(dividend);
+        int[] dividendDigits = Digits.toDigitsArray(dividend);
         int firstDividend = dividendDigits[0];
         int index = 0;
 
@@ -47,24 +47,13 @@ public class Division {
     }
 
     int[] computeSubtrahendsArray(int dividend, int divisor) {
-        int[] subtrahend = new int[toDigitsArray(dividend / divisor).length];
-        int[] resultDigits = toDigitsArray(dividend / divisor);
+        int[] subtrahend = new int[Digits.toDigitsArray(dividend / divisor).length];
+        int[] resultDigits = Digits.toDigitsArray(dividend / divisor);
 
         for (int i = 0; i < subtrahend.length; i++) {
             subtrahend[i] = divisor * resultDigits[i];
         }
 
         return subtrahend;
-    }
-
-    int[] toDigitsArray(int number) {
-        String numberStr = Integer.toString(Math.abs(number));
-        int[] digits = new int[numberStr.length()];
-
-        for (int i = 0; i < numberStr.length(); i++) {
-            digits[i] = Character.getNumericValue(numberStr.charAt(i));
-        }
-
-        return digits;
     }
 }

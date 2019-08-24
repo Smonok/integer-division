@@ -1,4 +1,4 @@
-package com.foxminded;
+package com.foxminded.integerdivision;
 
 import static org.junit.jupiter.api.Assertions.*;
 

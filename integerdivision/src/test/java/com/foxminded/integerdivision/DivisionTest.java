@@ -1,4 +1,4 @@
-package com.foxminded;
+package com.foxminded.integerdivision;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -81,25 +81,5 @@ class DivisionTest {
         int actualResult = division.computeFirstDividend(dividend, divisor);
 
         assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void toDigitsArrayShouldReturnArrayOfDigitsWhenPositiveNumber() {
-        Division division = new Division();
-        int number = 78945;
-        int[] expectedResult = { 7, 8, 9, 4, 5 };
-        int[] actualResult = division.toDigitsArray(number);
-
-        assertArrayEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void toDigitsArrayShouldReturnArrayOfDigitsWhenNegativeNumber() {
-        Division division = new Division();
-        int number = -78945;
-        int[] expectedResult = { 7, 8, 9, 4, 5 };
-        int[] actualResult = division.toDigitsArray(number);
-
-        assertArrayEquals(expectedResult, actualResult);
     }
 }
