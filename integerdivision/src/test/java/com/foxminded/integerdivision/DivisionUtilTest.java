@@ -4,13 +4,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class DigitsTest {
+class DivisionUtilTest {
 
     @Test
     void toDigitsArrayShouldReturnArrayOfDigitsWhenPositiveNumber() {
         int number = 78945;
         int[] expectedResult = { 7, 8, 9, 4, 5 };
-        int[] actualResult = Digits.toDigitsArray(number);
+        int[] actualResult = DivisionUtil.toDigitsArray(number);
 
         assertArrayEquals(expectedResult, actualResult);
     }
@@ -19,7 +19,7 @@ class DigitsTest {
     void toDigitsArrayShouldReturnArrayOfDigitsWhenNegativeNumber() {
         int number = -78945;
         int[] expectedResult = { 7, 8, 9, 4, 5 };
-        int[] actualResult = Digits.toDigitsArray(number);
+        int[] actualResult = DivisionUtil.toDigitsArray(number);
 
         assertArrayEquals(expectedResult, actualResult);
     }

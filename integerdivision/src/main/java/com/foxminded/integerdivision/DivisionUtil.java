@@ -1,6 +1,6 @@
 package com.foxminded.integerdivision;
 
-public class Digits {
+public class DivisionUtil {
 
     public static int[] toDigitsArray(int number) {
         String numberStr = Integer.toString(Math.abs(number));

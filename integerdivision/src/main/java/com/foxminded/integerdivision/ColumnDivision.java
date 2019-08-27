@@ -16,8 +16,8 @@ public class ColumnDivision {
 
         for (int i = 0; i < minuend.length; i++) {
             int indent = computeIndent(minuend, dividend, i);
-            int subtrahendIndent = Digits.toDigitsArray(minuend[i]).length + indent;
-            int minuendLength = Digits.toDigitsArray(minuend[i]).length;
+            int subtrahendIndent = DivisionUtil.toDigitsArray(minuend[i]).length + indent;
+            int minuendLength = DivisionUtil.toDigitsArray(minuend[i]).length;
 
             if (i != 0) {
                 divisionResult.append(createMinuend(minuend[i], indent))
@@ -45,10 +45,10 @@ public class ColumnDivision {
         divisor = Math.abs(divisor);
 
         int firstDividend = division.computeFirstDividend(dividend, divisor);
-        int firstDividendLength = Digits.toDigitsArray(firstDividend).length;
-        int divisionResultLength = Digits.toDigitsArray(dividend / divisor).length;
-        int dividendLength = Digits.toDigitsArray(dividend).length;
-        int[] divisionResultDigits = Digits.toDigitsArray(dividend / divisor);
+        int firstDividendLength = DivisionUtil.toDigitsArray(firstDividend).length;
+        int divisionResultLength = DivisionUtil.toDigitsArray(dividend / divisor).length;
+        int dividendLength = DivisionUtil.toDigitsArray(dividend).length;
+        int[] divisionResultDigits = DivisionUtil.toDigitsArray(dividend / divisor);
         int firstSubtrahend = divisor * divisionResultDigits[0];
         int firstSubtrahendIndent = indent + firstDividendLength;
         int separatorIndent = dividendLength - firstDividendLength + 1;
@@ -88,8 +88,8 @@ public class ColumnDivision {
     }
 
     private int computeIndent(int[] minuend, int dividend, int index) {
-        int firstMinuendLength = Digits.toDigitsArray(minuend[0]).length;
-        int minuendLength = Digits.toDigitsArray(minuend[index]).length;
+        int firstMinuendLength = DivisionUtil.toDigitsArray(minuend[0]).length;
+        int minuendLength = DivisionUtil.toDigitsArray(minuend[index]).length;
 
         if (dividend < 0) {
             firstMinuendLength++;
